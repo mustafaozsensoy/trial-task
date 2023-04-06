@@ -2,6 +2,7 @@ def check_url(url):
 
     from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
+    from chromedriver_autoinstaller import install
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
@@ -17,13 +18,14 @@ def check_url(url):
 
 
     # Chrome ayarlarını tanımla
+    chrome_driver_path = install()
     options = Options()
     options.add_argument('--headless')
 
     # Web sürücüsünü başlat
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", DeprecationWarning)
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
 
     # Web sayfasını yükle
     driver.get(url)
